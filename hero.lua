@@ -4,8 +4,8 @@ hero.x = 0
 hero.y = 0
 
 
-hero.width = 100
-hero.height = 100
+hero.width = 50
+hero.height = 50
 hero.speed = 1
 hero.offSetX = hero.width/2
 hero.offSetY = hero.height/2
