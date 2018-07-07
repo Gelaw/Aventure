@@ -16,8 +16,7 @@ hero.offSetY = hero.height/2
 function hero.init()
   hero.x = 5
   hero.y = 5
-  --hero.screenX = love.graphics.getWidth()/2
-  --hero.screenY = love.graphics.getHeight()/2
+
 end
 
 function hero.update(dt ,isWalkable)
@@ -46,11 +45,9 @@ function hero.keypressed(key)
   end
   if key == "s" or key == "down" then
     hero.y = hero.y + 1
-
   end
   if key == "d" or key == "right" then
     hero.x = hero.x + 1
-
   end
   if key == "q" or key == "left" then
   hero.x = hero.x - 1
