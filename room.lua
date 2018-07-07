@@ -29,7 +29,7 @@ function room.draw(xHero, yHero)
       elseif room.ground[x][y] == 1 then
         love.graphics.setColor(255, 0, 0)
       end
-      love.graphics.rectangle("fill", (x - xHero )* room.tilesize, (y - yHero) * room.tilesize, room.tilesize, room.tilesize)
+      love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
       love.graphics.setColor(255, 255, 255)
     end
   end
