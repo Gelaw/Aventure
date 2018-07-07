@@ -21,7 +21,7 @@ function room.init()
   {1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}}
@@ -43,10 +43,14 @@ function room.draw(xHero, yHero)
         love.graphics.setColor(53, 58, 62)
       end
       love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
-      love.graphics.setColor(255, 255, 255)
     end
   end
-  husband.draw()
+  love.graphics.setColor(255, 0, 0)
+  if husband.x > xHero - nbTileWidth / 2 - 1 and husband.x < xHero + nbTileWidth / 2
+   and husband.y > yHero - nbTileHeight/ 2 - 1 and husband.y < yHero + nbTileHeight/ 2 then
+     love.graphics.rectangle("fill",(husband.x - xHero)*room.tilesize + width/2, (husband.y - yHero) * room.tilesize + height/2, room.tilesize, room.tilesize)
+  end
+  love.graphics.setColor(255, 255, 255)
 end
 
 function room.isWalkable(x,y)
