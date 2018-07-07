@@ -23,14 +23,12 @@ end
 function hero.update(dt ,isWalkable)
   hero.screenX = width / 2
   hero.screenY = height / 2
-
   if isWalkable == false then
     hero.x = hero.currX
     hero.y = hero.currY
-  elseif isWalkable == true then
-
-  hero.currX = hero.x
-  hero.currY = hero.y
+    elseif isWalkable == true then
+    hero.currX = hero.x
+    hero.currY = hero.y
   end
 end
 

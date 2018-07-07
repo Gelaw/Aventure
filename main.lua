@@ -1,14 +1,6 @@
 local hero = require("hero")
 local room = require("room")
 
-function isWalkable(x,y)
-  if room.ground[y][x] == 0 then
-    return true
-  else
-    return false
-  end
-end
-
 function love.load()
 
   width = love.graphics.getWidth()
@@ -19,7 +11,8 @@ function love.load()
 end
 
 function love.update(dt)
-  hero.update(dt, isWalkable(hero.x, hero.y))
+  room.upodate(dt)
+  hero.update(dt, room.isWalkable(hero.x, hero.y))
 end
 
 function love.draw()

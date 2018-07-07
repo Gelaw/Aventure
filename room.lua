@@ -47,7 +47,18 @@ function room.draw(xHero, yHero)
     end
   end
   husband.draw()
+end
 
+function isWalkable(x,y)
+  if room.ground[y][x] == 0 then
+    return true
+  else
+    return false
+  end
+end
+
+function room.update(dt)
+  husband.update(dt, room.isWalkable(husband.x, husband.y))
 end
 
 return room
