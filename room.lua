@@ -29,14 +29,13 @@ function room.draw(xHero, yHero)
   nbTileHeight = height/room.tilesize
   for x = xHero - nbTileWidth / 2, xHero + nbTileWidth / 2, 1 do
     for y = yHero - nbTileHeight/ 2, yHero + nbTileHeight / 2, 1 do
-      print("x:"..x.." y:"..y.." xHero:".. xHero.." yHero:"..yHero)
-      if x <= 0 or x > #room.ground then
+      if y <= 0 or y > #room.ground then
         love.graphics.setColor(0, 0, 0)
-      elseif y <= 0 or y > #room.ground[x] then
+      elseif x <= 0 or x > #room.ground[y] then
         love.graphics.setColor(0, 0, 0)
-      elseif room.ground[x][y] == 0 then
+      elseif room.ground[y][x] == 0 then
         love.graphics.setColor(0, 255, 0)
-      elseif room.ground[x][y] == 1 then
+      elseif room.ground[y][x] == 1 then
         love.graphics.setColor(255, 0, 0)
       end
       love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)

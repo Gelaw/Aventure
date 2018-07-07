@@ -2,7 +2,7 @@ local hero = require("hero")
 local room = require("room")
 
 function isWalkable(x,y)
-  if room.ground[x][y] == 0 then
+  if room.ground[y][x] == 0 then
     return true
   else
     return false
