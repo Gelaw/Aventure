@@ -10,8 +10,7 @@ hero.speed = 1
 hero.offSetX = hero.width/2
 hero.offSetY = hero.height/2
 
-hero.screenX = hero.width * hero.x
-hero.screenY = hero.height * hero.y
+
 
 function hero.init()
   hero.x = 5
@@ -21,7 +20,8 @@ function hero.init()
 end
 
 function hero.update(dt)
-
+  hero.screenX = hero.width * hero.x
+  hero.screenY = hero.height * hero.y
   end
 
 function hero.draw()
