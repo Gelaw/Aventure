@@ -41,18 +41,18 @@ end
 function hero.keypressed(key)
 
 
-  if key == "z" then
+  if key == "z" or key == "up" then
     hero.y = hero.y - 1
   end
-  if key == "s" then
+  if key == "s" or key == "down" then
     hero.y = hero.y + 1
 
   end
-  if key == "d"  then
+  if key == "d" or key == "right" then
     hero.x = hero.x + 1
 
   end
-  if key == "q" then
+  if key == "q" or key == "left" then
   hero.x = hero.x - 1
   end
 
