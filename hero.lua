@@ -20,12 +20,12 @@ function hero.init()
 end
 
 function hero.update(dt)
-  hero.screenX = hero.width * hero.x
-  hero.screenY = hero.height * hero.y
+  hero.screenX = width / 2
+  hero.screenY = height / 2
   end
 
 function hero.draw()
-  love.graphics.rectangle("fill", hero.screenX - hero.offSetX, hero.screenY - hero.offSetY , hero.width, hero.height)
+  love.graphics.rectangle("fill", hero.screenX , hero.screenY , hero.width, hero.height)
 
 end
 
