@@ -4,12 +4,15 @@ function love.load()
   hauteur = love.graphics.getHeight()
 
 end
-
+x = 0
+y = 0
 function love.update(dt)
 
 end
 
 function love.draw()
+
+  --love.graphics.rectangle("fill", x, y, 100, 100)
 
 end
 
