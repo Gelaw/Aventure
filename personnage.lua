@@ -17,8 +17,11 @@ local Personnage = {}
     end
 
     function personnage:update(dt)
+
       if personnage.timer > dt then
         personnage.timer = personnage.timer - dt
+        print(personnage.timer.."/// "..dt)
+
       else
         personnage.timer = 0
       end
@@ -40,7 +43,7 @@ local Personnage = {}
         if personnage.isWalkable(newx, newy) then
           personnage.x = newx
           personnage.y = newy
-          personnage.timer = 10
+          personnage.timer = 2
           print(personnage.timer)
         end
       end

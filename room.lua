@@ -75,6 +75,7 @@ end
 
 function room.update(dt)
   husband:update(dt)
+  lover:update(dt)
 end
 
 function room.keypressed(key)
