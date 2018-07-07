@@ -11,7 +11,7 @@ function love.load()
 end
 
 function love.update(dt)
-  room.upodate(dt)
+  room.update(dt)
   hero.update(dt, room.isWalkable(hero.x, hero.y))
 end
 

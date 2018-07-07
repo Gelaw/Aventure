@@ -1,9 +1,9 @@
 local husband = {}
 
-husband.x = 0
-husband.y = 0
-husband.currX = 0
-husband.currY = 0
+husband.x = 5
+husband.y = 5
+husband.currX = 5
+husband.currY = 5
 
 husband.width = 50
 husband.height = 50
