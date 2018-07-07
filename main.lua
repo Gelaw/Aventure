@@ -20,7 +20,7 @@ function love.draw()
 end
 
 function love.keypressed(key)
-
+  hero.keypressed(key)
   print(key)
 
 end

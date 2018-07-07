@@ -22,30 +22,33 @@ end
 
 function hero.update(dt)
 
-    if love.keyboard.isDown("z") and hero.screenY - hero.offSetY > 0 then
-      --hero.screenY = hero.screenY - hero.speed
-      hero.y = hero.y - 1
-    end
-    if love.keyboard.isDown("s") and hero.screenY + hero.offSetY < height then
-    --  hero.screenY = hero.screenY + hero.speed
-      hero.y = hero.y + 1
-
-    end
-    if love.keyboard.isDown("d") and hero.screenX + hero.offSetX< width then
-    --hero.screenX = hero.screenX + hero.speed
-      hero.x = hero.x + 1
-
-    end
-    if love.keyboard.isDown("q") and hero.screenX - hero.offSetX  > 0 then
-    --  hero.screenX = hero.screenX - hero.speed
-    hero.x = hero.x - 1
-
-    end
   end
 
 function hero.draw()
   love.graphics.rectangle("fill", hero.screenX - hero.offSetX, hero.screenY - hero.offSetY , hero.width, hero.height)
 
+end
+
+function hero.keypressed(key)
+  if key == "z" then
+    --hero.screenY = hero.screenY - hero.speed
+    hero.y = hero.y - 1
+  end
+  if key == "s" then
+  --  hero.screenY = hero.screenY + hero.speed
+    hero.y = hero.y + 1
+
+  end
+  if key == "d"  then
+  --hero.screenX = hero.screenX + hero.speed
+    hero.x = hero.x + 1
+
+  end
+  if key == "q" then
+  --  hero.screenX = hero.screenX - hero.speed
+  hero.x = hero.x - 1
+
+  end
 end
 
 return hero
