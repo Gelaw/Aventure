@@ -29,10 +29,10 @@ function room.draw(xHero, yHero)
   nbTileHeight = height/room.tilesize
   for x = xHero - nbTileWidth / 2, xHero + nbTileWidth / 2, 1 do
     for y = yHero - nbTileHeight/ 2, yHero + nbTileHeight / 2, 1 do
-      print("x:"..x.." y:"..y)
-      if y <= 0 or y > #room.ground then
+      print("x:"..x.." y:"..y.." xHero:".. xHero.." yHero:"..yHero)
+      if x <= 0 or x > #room.ground then
         love.graphics.setColor(0, 0, 0)
-      elseif x <= 0 or x > #room.ground[y] then
+      elseif y <= 0 or y > #room.ground[x] then
         love.graphics.setColor(0, 0, 0)
       elseif room.ground[x][y] == 0 then
         love.graphics.setColor(0, 255, 0)
