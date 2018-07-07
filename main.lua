@@ -1,4 +1,5 @@
 local hero = require("hero")
+local room = require("room")
 
 function love.load()
 
@@ -6,7 +7,7 @@ function love.load()
   height = love.graphics.getHeight()
 
   hero.init()
-
+  room.init()
 end
 
 function love.update(dt)
@@ -14,6 +15,7 @@ function love.update(dt)
 end
 
 function love.draw()
+  room.draw(hero.x, hero.y)
   hero.draw()
 end
 
