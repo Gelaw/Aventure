@@ -8,9 +8,6 @@ hero.currY = hero.y
 hero.width = 50
 hero.height = 50
 hero.speed = 1
-hero.offSetX = hero.width/2
-hero.offSetY = hero.height/2
-
 
 
 function hero.init()
