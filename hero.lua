@@ -35,6 +35,7 @@ function hero.update(dt ,isWalkable)
 end
 
 function hero.draw()
+  love.graphics.setColor(255, 255, 255)
   love.graphics.rectangle("fill", hero.screenX , hero.screenY , hero.width, hero.height)
 
 end
