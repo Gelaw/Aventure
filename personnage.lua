@@ -6,7 +6,7 @@ local Personnage = {}
     personnage.y = 0
     personnage.width = 50
     personnage.height = 50
-    personnage
+    personnage.speed = 1
 
     return personnage
   end
