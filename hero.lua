@@ -6,7 +6,7 @@ hero.y = 0
 
 hero.width = 100
 hero.height = 100
-hero.speed = 10
+hero.speed = 1
 hero.offSetX = hero.width/2
 hero.offSetY = hero.height/2
 
@@ -23,16 +23,23 @@ end
 function hero.update(dt)
 
     if love.keyboard.isDown("z") and hero.screenY - hero.offSetY > 0 then
-      hero.screenY = hero.screenY - hero.speed
+      --hero.screenY = hero.screenY - hero.speed
+      hero.y = hero.y - 1
     end
     if love.keyboard.isDown("s") and hero.screenY + hero.offSetY < height then
-      hero.screenY = hero.screenY + hero.speed
+    --  hero.screenY = hero.screenY + hero.speed
+      hero.y = hero.y + 1
+
     end
     if love.keyboard.isDown("d") and hero.screenX + hero.offSetX< width then
-      hero.screenX = hero.screenX + hero.speed
+    --hero.screenX = hero.screenX + hero.speed
+      hero.x = hero.x + 1
+
     end
     if love.keyboard.isDown("q") and hero.screenX - hero.offSetX  > 0 then
-      hero.screenX = hero.screenX - hero.speed
+    --  hero.screenX = hero.screenX - hero.speed
+    hero.x = hero.x - 1
+
     end
   end
 
