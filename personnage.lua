@@ -43,7 +43,7 @@ local Personnage = {}
         if personnage.isWalkable(newx, newy) then
           personnage.x = newx
           personnage.y = newy
-          personnage.timer = 2
+          personnage.timer = 0.3
           print(personnage.timer)
         end
       end

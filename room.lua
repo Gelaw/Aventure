@@ -76,21 +76,22 @@ end
 function room.update(dt)
   husband:update(dt)
   lover:update(dt)
+  if love.keyboard.isDown("z") or love.keyboard.isDown("up") then
+    lover:move("up")
+  end
+  if love.keyboard.isDown("s") or love.keyboard.isDown("down") then
+    lover:move("down")
+  end
+  if love.keyboard.isDown("d") or love.keyboard.isDown("right") then
+    lover:move("right")
+  end
+  if love.keyboard.isDown("q") or love.keyboard.isDown("left") then
+    lover:move("left")
+  end
 end
 
 function room.keypressed(key)
-  if key == "z" or key == "up" then
-    lover:move("up")
-  end
-  if key == "s" or key == "down" then
-    lover:move("down")
-  end
-  if key == "d" or key == "right" then
-    lover:move("right")
-  end
-  if key == "q" or key == "left" then
-    lover:move("left")
-  end
+
 end
 
 return room
