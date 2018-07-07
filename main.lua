@@ -1,27 +1,19 @@
 function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 
-
-local hero = require("hero")
 local room = require("room")
 
 function love.load()
-
   width = love.graphics.getWidth()
   height = love.graphics.getHeight()
-
-  hero.init()
   room.init()
 end
 
 function love.update(dt)
   room.update(dt)
-  hero.update(dt, room.isWalkable(hero.x, hero.y))
 end
 
 function love.draw()
-  room.draw(hero.x, hero.y)
-  hero.draw()
-
+  room.draw()
 --[[ affiche distance hero to cell
   for x = -10, 10, 1 do
     for y = -10, 10, 1 do
@@ -38,12 +30,8 @@ function love.draw()
     end
   end
 --]]
-
 end
 
 function love.keypressed(key)
-
-  hero.keypressed(key)
-  print(key)
-
+  room.keypressed(key)
 end

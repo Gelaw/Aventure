@@ -10,36 +10,39 @@ local Personnage = {}
     personnage.timer = 0
     personnage.isWalkable = {}
 
-    function init(x, y, isWalkable)
+    function personnage:init(x, y, isWalkable)
       personnage.x = x
       personnage.y = y
       personnage.isWalkable = isWalkable
     end
 
-    function update(dt)
-      if timer >= dt then
-        timer = timer - dt
+    function personnage:update(dt)
+      if personnage.timer > dt then
+        personnage.timer = personnage.timer - dt
       else
-        timer = 0
+        personnage.timer = 0
       end
     end
 
-    function move(direction)
-      local newx = personnage.x
-      local newy = personnage.y
-      if direction == 0 then
-        new.y = new.y - 1
-      elseif direction == 1 then
-        new.x = new.x + 1
-      elseif direction == 2 then
-        new.y = new.y + 1
-      elseif direction == 3 then
-        new.x = new.x - 1
-      end
-      if personnage.isWalkable(newx, newy) then
-        personnage.x = newx
-        personnage.y = newy
-        personnage.timer = speed
+    function personnage:move(direction)
+      if personnage.timer == 0 then
+        local newx = personnage.x
+        local newy = personnage.y
+        if direction == "up" then
+          newy = newy - 1
+        elseif direction == "right" then
+          newx = newx + 1
+        elseif direction == "down" then
+          newy = newy + 1
+        elseif direction == "left" then
+          newx = newx - 1
+        end
+        if personnage.isWalkable(newx, newy) then
+          personnage.x = newx
+          personnage.y = newy
+          personnage.timer = 10
+          print(personnage.timer)
+        end
       end
     end
 
