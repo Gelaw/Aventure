@@ -1,6 +1,13 @@
+--additionnal materials
 function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 
+--require
 local room = require("room")
+
+--images
+local imgMenu = love.graphics.newImage("images/imgMenu.jpg")
+
+local currScreen = "menu"
 
 function love.load()
   width = love.graphics.getWidth()
@@ -12,8 +19,18 @@ function love.update(dt)
   room.update(dt)
 end
 
+function drawMenu()
+  love.graphics.draw(imgMenu, 0, 0,0,0.8,0.9)
+end
 function love.draw()
-  room.draw()
+  if currScreen == "game" then
+    room.draw()
+  end
+  if currScreen == "menu" then
+    drawMenu()
+  end
+
+
 --[[ affiche distance hero to cell
   for x = -10, 10, 1 do
     for y = -10, 10, 1 do
@@ -33,5 +50,8 @@ function love.draw()
 end
 
 function love.keypressed(key)
+  if currScreen == "menu" and key == "space" then
+    currScreen = "game"
+  end
   room.keypressed(key)
 end
