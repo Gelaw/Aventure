@@ -49,7 +49,7 @@ function room.draw(xHero, yHero)
   husband.draw()
 end
 
-function isWalkable(x,y)
+function room.isWalkable(x,y)
   if room.ground[y][x] == 0 then
     return true
   else
