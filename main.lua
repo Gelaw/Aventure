@@ -2,8 +2,10 @@ local hero = require("hero")
 
 function love.load()
 
-  largeur = love.graphics.getWidth()
-  hauteur = love.graphics.getHeight()
+  width = love.graphics.getWidth()
+  height = love.graphics.getHeight()
+
+  hero.init()
 
 end
 
