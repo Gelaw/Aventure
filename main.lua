@@ -1,6 +1,5 @@
 local hero = require("hero")
 local room = require("room")
-local husband = require("husband")
 
 function isWalkable(x,y)
   if room.ground[y][x] == 0 then
@@ -17,7 +16,6 @@ function love.load()
 
   hero.init()
   room.init()
-  husband.init()
 end
 
 function love.update(dt)
@@ -27,7 +25,6 @@ end
 function love.draw()
   room.draw(hero.x, hero.y)
   hero.draw()
-  husband.draw()
 end
 
 function love.keypressed(key)

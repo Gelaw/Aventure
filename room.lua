@@ -1,8 +1,12 @@
+local husband = require("husband")
+
 local room = {}
 room.ground = {}
 room.tilesize = 0
 
 function room.init()
+  husband.init()
+
   room.ground = {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -42,6 +46,8 @@ function room.draw(xHero, yHero)
       love.graphics.setColor(255, 255, 255)
     end
   end
+  husband.draw()
+
 end
 
 return room
