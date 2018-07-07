@@ -2,7 +2,8 @@ local hero = {}
 
 hero.x = 0
 hero.y = 0
-
+hero.currX = hero.x
+hero.currY = hero.y
 
 hero.width = 50
 hero.height = 50
@@ -19,10 +20,19 @@ function hero.init()
   --hero.screenY = love.graphics.getHeight()/2
 end
 
-function hero.update(dt)
+function hero.update(dt ,isWalkable)
   hero.screenX = width / 2
   hero.screenY = height / 2
+
+  if isWalkable == false then
+    hero.x = hero.currX
+    hero.y = hero.currY
+  elseif isWalkable == true then
+
+  hero.currX = hero.x
+  hero.currY = hero.y
   end
+end
 
 function hero.draw()
   love.graphics.rectangle("fill", hero.screenX , hero.screenY , hero.width, hero.height)
@@ -30,25 +40,23 @@ function hero.draw()
 end
 
 function hero.keypressed(key)
+
+
   if key == "z" then
-    --hero.screenY = hero.screenY - hero.speed
     hero.y = hero.y - 1
   end
   if key == "s" then
-  --  hero.screenY = hero.screenY + hero.speed
     hero.y = hero.y + 1
 
   end
   if key == "d"  then
-  --hero.screenX = hero.screenX + hero.speed
     hero.x = hero.x + 1
 
   end
   if key == "q" then
-  --  hero.screenX = hero.screenX - hero.speed
   hero.x = hero.x - 1
-
   end
+
 end
 
 return hero
