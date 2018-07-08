@@ -1,3 +1,6 @@
+local Node = require "node"
+local NodeList = require "nodeList"
+
 local Personnage = {}
 
   function Personnage:new()
@@ -20,7 +23,7 @@ local Personnage = {}
 
       if personnage.timer > dt then
         personnage.timer = personnage.timer - dt
-        print(personnage.timer.."/// "..dt)
+        --print(personnage.timer.."/// "..dt)
 
       else
         personnage.timer = 0
@@ -40,50 +43,86 @@ local Personnage = {}
         elseif direction == "left" then
           newx = newx - 1
         end
-        if personnage.isWalkable(newx, newy) then
+        if personnage.isWalkable(newx, newy) and (newx ~= personnage.x or newy ~= personnage.y) then
           personnage.x = newx
           personnage.y = newy
           personnage.timer = 0.3
-          print(personnage.timer)
+          --print(personnage.timer)
+          return true
+        else
+          return false
         end
+        return true
       end
     end
 
     Personnage.path = {}
---[[
-    function Personnage:initPathFinding(xDestination, yDestionation)
-      local openList = {}
-      local closedList = {}
-      local node = node:new()
+
+    function personnage:initPathFinding(xDestination, yDestionation)
+      local openList = NodeList:new()
+      openList:init()
+      local closedList = NodeList:new()
+      closedList:init()
+      local node = Node:new()
       node:init(Personnage.x, Personnage.y, math.dist(Personnage.x, Personnage.y, xDestination, yDestionation),0,nil)
-      table.insert(openList, node)
-      while #open > 0 and node.x == not xDestination and node.y == not yDestionation do
-        table.sort(openList, function (a,b) return a[3]<b[3] end)
-        local bestValue = table.remove(open, 1)
-        table.insert(closed, bestValue)
-        local neigs = {{0,1}, {0,-1},{1,0},{-1,0}}
+      openList:add(node)
+      while openList:isEmpty() == false do
+        openList:sort()
+        node = openList:getAndRemoveFirst()
+        if node.x == xDestination and node.y == yDestionation then
+          pathNodeList = nodeList:new()
+          pathNodeList:inti()
+          node:generatePath(pathNodeList)
+          personnage.path = {}
+          local previousStep = pathNodeList.getAndRemoveFirst()
+          for step in pathNodeList do
+            local direction = {}
+            if previousStep.x == step.x - 1 then
+              direction = "right"
+            elseif previousStep.x == step.x + 1 then
+              direction = "left"
+            elseif previousStep.y == step.y - 1 then
+              direction = "down"
+            elseif previousStep.y == step.y + 1 then
+              direction = "up"
+            else
+              print("Path convertion to cardinal instruction failed")
+            end
+            table.insert(personnage.path, direction)
+            previousStep = step;
+          end
+          print("Pathfinding successful!")
+          return
+        end
+        closedList:add(node)
+        local steps = {{0,1}, {0,-1},{1,0},{-1,0}}
         for n = 1,4 do
-          local tPos = {bestValue.x + neigs[n][0], bestValue.y+neigs[n][0]}
-          for c in openList do
-            if c.x == tPos[1] and c.y == tPos[2] then
-              if c.cost < bestValue.cost then
-                c.cost = bestValue.cost + 1
+          local tPos = {u.x + steps[n][0], u.y+steps[n][0]}
+          for v in openList do
+            if v.x == tPos[1] and v.y == tPos[2] then
+              if v.cost < u.cost then
+                v.cost = u.cost + 1
+                v.heuristic = v.cost + math.dist(v.x, v.y, xDestination, yDestionation)
+                v.parent = u
+                openList:add(v)
               end
             end
           end
-          for c in closedList do
-            if c.x == tPos[1] and c.y == tPos[2] then
-              if c.cost < bestValue.cost then
-                c.cost = bestValue.cost + 1
-                node = node:new()
-                node:init()
+          for v in closedList do
+            if v.x == tPos[1] and v.y == tPos[2] then
+              if v.cost < u.cost then
+                v.cost = u.cost + 1
+                v.heuristic = v.cost + math.dist(v.x, v.y, xDestination, yDestionation)
+                v.parent = u
+                openList:add(v)
               end
             end
           end
         end
       end
+      print("Pathfinding failed.")
     end
-]]
+
     return personnage
   end
 

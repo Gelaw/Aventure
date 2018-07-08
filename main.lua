@@ -7,7 +7,7 @@ local room = require("room")
 --images
 local imgMenu = love.graphics.newImage("images/imgMenu.jpg")
 
-local currScreen = "menu"
+local currScreen = "game"
 
 function love.load()
   width = love.graphics.getWidth()
@@ -16,12 +16,15 @@ function love.load()
 end
 
 function love.update(dt)
-  room.update(dt)
+  if currScreen == "game" then
+    room.update(dt)
+  end
 end
 
 function drawMenu()
   love.graphics.draw(imgMenu, 0, 0,0,0.8,0.9)
 end
+
 function love.draw()
   if currScreen == "game" then
     room.draw()
@@ -53,5 +56,4 @@ function love.keypressed(key)
   if currScreen == "menu" and key == "space" then
     currScreen = "game"
   end
-  room.keypressed(key)
 end

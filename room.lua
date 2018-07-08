@@ -8,6 +8,7 @@ room.tilesize = 0
 function room.init()
   lover = Personnage:new()
   lover:init(5,5,isWalkable)
+  lover:initPathFinding(20,15)
   husband = Personnage:new()
   husband:init(20,16, isWalkable)
 
@@ -76,6 +77,7 @@ end
 function room.update(dt)
   husband:update(dt)
   lover:update(dt)
+  --[[
   if love.keyboard.isDown("z") or love.keyboard.isDown("up") then
     lover:move("up")
   end
@@ -87,11 +89,7 @@ function room.update(dt)
   end
   if love.keyboard.isDown("q") or love.keyboard.isDown("left") then
     lover:move("left")
-  end
-end
-
-function room.keypressed(key)
-
+  end]]
 end
 
 return room
