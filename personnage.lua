@@ -49,6 +49,41 @@ local Personnage = {}
       end
     end
 
+    Personnage.path = {}
+--[[
+    function Personnage:initPathFinding(xDestination, yDestionation)
+      local openList = {}
+      local closedList = {}
+      local node = node:new()
+      node:init(Personnage.x, Personnage.y, math.dist(Personnage.x, Personnage.y, xDestination, yDestionation),0,nil)
+      table.insert(openList, node)
+      while #open > 0 and node.x == not xDestination and node.y == not yDestionation do
+        table.sort(openList, function (a,b) return a[3]<b[3] end)
+        local bestValue = table.remove(open, 1)
+        table.insert(closed, bestValue)
+        local neigs = {{0,1}, {0,-1},{1,0},{-1,0}}
+        for n = 1,4 do
+          local tPos = {bestValue.x + neigs[n][0], bestValue.y+neigs[n][0]}
+          for c in openList do
+            if c.x == tPos[1] and c.y == tPos[2] then
+              if c.cost < bestValue.cost then
+                c.cost = bestValue.cost + 1
+              end
+            end
+          end
+          for c in closedList do
+            if c.x == tPos[1] and c.y == tPos[2] then
+              if c.cost < bestValue.cost then
+                c.cost = bestValue.cost + 1
+                node = node:new()
+                node:init()
+              end
+            end
+          end
+        end
+      end
+    end
+]]
     return personnage
   end
 
