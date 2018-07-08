@@ -1,5 +1,7 @@
 --additionnal materials
 function math.dist(x1,y1, x2,y2) return (math.abs(x2-x1)+math.abs(y2-y1)) end
+function math.angle(x1,y1, x2,y2) return math.atan2(y2-y1, x2-x1) end
+
 local clock = os.clock
 function sleep(n)
   local t0 = clock()

@@ -13,6 +13,7 @@ local Personnage = {}
     personnage.timer = 0
     personnage.isWalkable = {}
     personnage.isIA = false
+    personnage.range = 300
 
     function personnage:init(x, y, isWalkable)
       personnage.x = x
@@ -24,7 +25,6 @@ local Personnage = {}
 
       if personnage.timer > dt then
         personnage.timer = personnage.timer - dt
-        --print(personnage.timer.."/// "..dt)
 
       else
         personnage.timer = 0
@@ -50,7 +50,7 @@ local Personnage = {}
         if personnage.isWalkable(newx, newy) and (newx ~= personnage.x or newy ~= personnage.y) then
           personnage.x = newx
           personnage.y = newy
-          personnage.timer = 0.2
+          personnage.timer = 0.1
           --print(personnage.timer)
           return true
         end
