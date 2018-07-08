@@ -31,7 +31,7 @@ end
 
 function drawMenu()
   love.graphics.draw(imgMenu, 0, 0,0,1.5,2)
-  --love.graphics.setFont(font)
+  --love.graphics.setFont("fonts/Sonika")
   love.graphics.print("AVENTURE",100,50,0.4,4,4)
 end
 function drawGameOver()
