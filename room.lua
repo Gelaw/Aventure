@@ -9,7 +9,7 @@ function room.init()
 
     generateVisible()
   room.ground = {
-      {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+      {1,1,1,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,1},
@@ -42,7 +42,8 @@ function room.init()
   lover:init(11,3,isWalkable)
   husband = Personnage:new()
   husband:init(5,5, isWalkable)
-
+  wife = Personnage:new()
+  wife:init(11,4, isWalkable)
 
   room.tilesize = 10
 
@@ -74,6 +75,8 @@ function room.draw()
         love.graphics.setColor(53, 58, 62, transp)
       elseif room.ground[y][x] == 4 then
         love.graphics.setColor(255, 128, 0, transp)
+      elseif room.ground[y][x] == 5 then
+        love.graphics.setColor(51, 0, 25, transp)
       end
 
       love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
@@ -83,7 +86,10 @@ function room.draw()
   room.drawPersonnage(lover, xHero, yHero)
   love.graphics.setColor(255, 0, 0)
   room.drawPersonnage(husband, xHero, yHero)
+  love.graphics.setColor(255, 0, 255)
+  room.drawPersonnage(wife, xHero, yHero)
   love.graphics.setColor(255, 255, 255)
+
 end
 
 function room.drawPersonnage(personnage, xCam, yCam)
@@ -98,7 +104,7 @@ isWalkable = function (x,y)
     return false
   elseif x <= 0 or x > #room.ground[y] then
     return false
-  elseif room.ground[y][x] == 0 or room.ground[y][x] == 4 then
+  elseif room.ground[y][x] == 0 or room.ground[y][x] == 4 or room.ground[y][x] == 5 then
     return true
   else
     return false
