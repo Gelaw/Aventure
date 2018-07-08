@@ -109,7 +109,7 @@ function room.update(dt)
     px,py      = husband.x,husband.y
   generateVisible()
   husband:update(dt)
-  if visible[lover.x] and visible[lover.x][lover.y] == 1 and room.ground < 3 then
+  if visible[lover.x] and visible[lover.x][lover.y] == 1 and room.ground[lover.y][lover.x] < 3 then
       husband:stop()
       husband:initPathFinding({x = lover.x, y = lover.y})
   end
