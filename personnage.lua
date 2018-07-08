@@ -58,6 +58,10 @@ local Personnage = {}
       end
     end
 
+    function personnage:isReady()
+      return #personnage.path == 0
+    end
+
     personnage.path = {}
     personnage.pathIndex = 1
 
@@ -91,7 +95,7 @@ local Personnage = {}
         openList:sort()
         node = openList:getAndRemoveFirst()
         closedList:add(node)
-        print("Removed node:"..node:prompt())
+        --print("Removed node:"..node:prompt())
         if node.x == destination.x and node.y == destination.y then
           personnage:generatePath(node)
           return
