@@ -26,9 +26,11 @@ function love.update(dt)
     room.update(dt)
   end
   if lover.x == husband.x and lover.y == husband.y then
-    currScreen = "gameOver"
+    loose()
   end
+
 end
+
 local font = love.graphics.newFont("fonts/Sonika.ttf", 20)
 
 function drawMenu()
@@ -83,11 +85,22 @@ function love.draw()
   end
 --]]
 end
+function loose()
+  currScreen = "gameOver"
+end
 function win()
   currScreen = "victory"
+end
+function reset()
+  currScreen = "menu"
+  room.init()
 end
 function love.keypressed(key)
   if currScreen == "menu" and key == "space" then
     currScreen = "game"
   end
+  if currScreen == "victory" or currScreen == "gameOver" and key == "space" then
+    reset()
+  end
+
 end
