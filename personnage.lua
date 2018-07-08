@@ -50,7 +50,7 @@ local Personnage = {}
         if personnage.isWalkable(newx, newy) and (newx ~= personnage.x or newy ~= personnage.y) then
           personnage.x = newx
           personnage.y = newy
-          personnage.timer = 0.2
+          personnage.timer = 0.1
           --print(personnage.timer)
           return true
         end
@@ -58,8 +58,9 @@ local Personnage = {}
       end
     end
 
-    function personnage:isReady()
-      return #personnage.path == 0
+    function personnage:stop()
+      personnage.path = {}
+      personnage.pathIndex = 1
     end
 
     personnage.path = {}

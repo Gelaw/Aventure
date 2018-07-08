@@ -6,6 +6,8 @@ room.ground = {}
 room.tilesize = 0
 
 function room.init()
+
+    generateVisible()
   room.ground = {
       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -47,8 +49,6 @@ function room.init()
   husband:initPathFinding({x = lover.x, y = lover.y})
   husband.isIA = true
 
-    px,py      = lover.x,lover.y
-  generateVisible()
 end
 
 function room.draw()
@@ -77,10 +77,10 @@ function room.draw()
       love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
     end
   end
-  love.graphics.setColor(255, 0, 0)
-  room.drawPersonnage(husband, xHero, yHero)
   love.graphics.setColor(255, 255, 255)
   room.drawPersonnage(lover, xHero, yHero)
+  love.graphics.setColor(255, 0, 0)
+  room.drawPersonnage(husband, xHero, yHero)
   love.graphics.setColor(255, 255, 255)
 end
 
@@ -104,35 +104,29 @@ isWalkable = function (x,y)
 end
 
 function room.update(dt)
+    px,py      = husband.x,husband.y
+  generateVisible()
   husband:update(dt)
-  if husband:isReady() then
+  if visible[lover.x] and visible[lover.x][lover.y] == 1 then
+      husband:stop()
       husband:initPathFinding({x = lover.x, y = lover.y})
   end
   lover:update(dt)
 
+
+
   if love.keyboard.isDown("z") or love.keyboard.isDown("up") then
     lover:move("up")
-
-    px,py      = lover.x,lover.y
-      generateVisible()
   end
   if love.keyboard.isDown("s") or love.keyboard.isDown("down") then
     lover:move("down")
-
-    px,py      = lover.x,lover.y
-      generateVisible()
   end
   if love.keyboard.isDown("d") or love.keyboard.isDown("right") then
     lover:move("right")
 
-    px,py      = lover.x,lover.y
-      generateVisible()
   end
   if love.keyboard.isDown("q") or love.keyboard.isDown("left") then
     lover:move("left")
-
-    px,py      = lover.x,lover.y
-      generateVisible()
   end
 end
 
@@ -143,13 +137,10 @@ end
 
 fov = require 'fov'
 
-
-
-
 tw,th      = 8,8
 px,py      = 5,5
-radius     = 20
-radius_type= 'square'
+radius     = 10
+radius_type= 'circle'
 perm       = 5
 angle      = 0
 angle_size = 360
@@ -160,6 +151,7 @@ height     = 60
 
 run_symmetry_test = false
 fail_visible      = {}
+
     function generateVisible()
     	visible = {}
 
