@@ -11,6 +11,7 @@ local room = require("room")
 --images
 local imgMenu = love.graphics.newImage("images/imgMenu.jpg")
 local imgGameOver = love.graphics.newImage("images/imgGameOver.jpg")
+local imgVictory = love.graphics.newImage("images/imgVictory.jpg")
 
 local currScreen = "menu"
 
@@ -28,10 +29,10 @@ function love.update(dt)
     currScreen = "gameOver"
   end
 end
+local font = love.graphics.newFont("fonts/Sonika.ttf", 20)
 
 function drawMenu()
   love.graphics.draw(imgMenu, 0, 0,0,1.5,2)
-  local font = love.graphics.newFont("fonts/Sonika.ttf", 20)
   love.graphics.setFont(font)
   love.graphics.setColor(255, 0, 0)
   love.graphics.print("AVENTURE",90,40,0.4,4,4)
@@ -41,6 +42,13 @@ function drawMenu()
 end
 function drawGameOver()
   love.graphics.draw(imgGameOver, 0, 0,0,0.8,0.9)
+end
+function drawVictory()
+  love.graphics.setColor(0, 255, 0,200)
+  love.graphics.draw(imgVictory, 0, 0,0,1.6,1)
+  love.graphics.setColor(255, 255, 255)
+  love.graphics.setFont(font)
+  love.graphics.print("You escaped, GJ filthy bastard", 100, height-100,0,2,2)
 end
 function love.draw()
   if currScreen == "game" then
@@ -52,6 +60,10 @@ function love.draw()
   if currScreen == "gameOver" then
     drawGameOver()
   end
+  if currScreen == "victory" then
+    drawVictory()
+  end
+
 
 
 --[[ affiche distance hero to cell
@@ -71,7 +83,9 @@ function love.draw()
   end
 --]]
 end
-
+function win()
+  currScreen = "victory"
+end
 function love.keypressed(key)
   if currScreen == "menu" and key == "space" then
     currScreen = "game"

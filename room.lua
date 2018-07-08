@@ -136,6 +136,10 @@ function room.update(dt)
   if love.keyboard.isDown("q") or love.keyboard.isDown("left") then
     lover:move("left")
   end
+  if room.ground[lover.y][lover.x] == 5 then
+    win()
+    print("win")
+  end
 end
 
 
