@@ -28,6 +28,17 @@ local NodeList = {}
       return table.remove(nodeList.list, 1)
     end
 
+    function nodeList:prompt(name)
+      print(name)
+      for i = 1, #nodeList.list, 1 do
+        if nodeList.list[i] == nil then
+          print("   nil")
+        else
+          print("   " .. nodeList.list[i]:prompt())
+        end
+      end
+    end
+
     return nodeList
   end
 

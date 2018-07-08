@@ -24,6 +24,9 @@ local Node = {}
       return path
     end
 
+    function node:prompt()
+      return ("Node : x:"..node.x.." y:"..node.y.." heuristic:"..node.heuristic.." cost:".. node.cost)
+    end
     return node
   end
 return Node
