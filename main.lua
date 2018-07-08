@@ -1,6 +1,10 @@
 --additionnal materials
 function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
-
+local clock = os.clock
+function sleep(n)  -- seconds
+  local t0 = clock()
+  while clock() - t0 <= n do end
+end
 --require
 local room = require("room")
 
@@ -18,16 +22,26 @@ end
 function love.update(dt)
   if currScreen == "game" then
     room.update(dt)
+    sleep(10)
+    print("done")
   end
+
 end
 
 function drawMenu()
   love.graphics.draw(imgMenu, 0, 0,0,0.8,0.9)
 end
 
+font = love.graphics.newFont("fonts/Sonika.ttf", 50)
+
 function love.draw()
   if currScreen == "game" then
     room.draw()
+    love.graphics.setColor(255,0,0)
+    love.graphics.setFont(font)
+    love.graphics.print("MAIS QUE FAIS TU ?!!", 100/2, height - 100)
+    love.graphics.setColor(255,255,255)
+
   end
   if currScreen == "menu" then
     drawMenu()
