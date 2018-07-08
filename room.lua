@@ -106,17 +106,15 @@ isWalkable = function (x,y)
 end
 
 function room.update(dt)
-    px,py      = husband.x,husband.y
+    px,py      = lover.x,lover.y
+    ex, ey = husband.x, husband.y
   generateVisible()
   husband:update(dt)
-  if visible[lover.x] and visible[lover.x][lover.y] == 1 and room.ground[lover.y][lover.x] < 3 then
+  if enemyVision[lover.x] and enemyVision[lover.x][lover.y] == 1 and room.ground[lover.y][lover.x] < 3 then
       husband:stop()
       husband:initPathFinding({x = lover.x, y = lover.y})
   end
   lover:update(dt)
-
-
-
   if love.keyboard.isDown("z") or love.keyboard.isDown("up") then
     lover:move("up")
   end
@@ -125,7 +123,6 @@ function room.update(dt)
   end
   if love.keyboard.isDown("d") or love.keyboard.isDown("right") then
     lover:move("right")
-
   end
   if love.keyboard.isDown("q") or love.keyboard.isDown("left") then
     lover:move("left")
@@ -151,7 +148,7 @@ show_help  = true
 width      = 98
 height     = 60
 
-run_symmetry_test = false
+run_symmetry_test = true
 fail_visible      = {}
 
     function generateVisible()
