@@ -23,7 +23,6 @@ function love.update(dt)
   if currScreen == "game" then
     room.update(dt)
   end
-
 end
 
 function drawMenu()
@@ -64,6 +63,8 @@ function love.draw()
 --]]
 end
 
+function love.wheelmoved(x, y)
+end
 function love.keypressed(key)
   if currScreen == "menu" and key == "space" then
     currScreen = "game"

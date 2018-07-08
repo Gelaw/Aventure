@@ -12,6 +12,8 @@ local Personnage = {}
     personnage.speed = 1
     personnage.timer = 0
     personnage.isWalkable = {}
+    personnage.direction = "right"
+    personnage.visionBox = {}
 
     function personnage:init(x, y, isWalkable)
       personnage.x = x
@@ -30,10 +32,46 @@ local Personnage = {}
       end
     end
 
+    function personnage:setDirection(dir)
+      if dir == "up" or dir == "down" or dir == "left" or dir == "right" then
+        personnage.direction = dir
+      else
+        print("Error at direction setting")
+      end
+    end
+
+    function personnage:drawVision(perso, viewRangeInTile)
+      local dir = perso.direction
+      local viewRange = viewRangeInTile * 50
+      love.graphics.setColor(255, 255, 0,50)
+      if dir == "up" then
+        --love.graphics.rectangle("fill", perso.x + perso.width/2, perso.y - perso.height/2 - viewRange, viewRange, viewRange)
+        personnage.visionBox = love.graphics.rectangle("fill",  width/2 + (perso.width/2)-(viewRange/2), height/2 - viewRange, viewRange, viewRange)
+
+      elseif dir == "down" then
+        --love.graphics.rectangle("fill", perso.x - perso.width/2, perso.y - perso.height/2, viewRange, viewRange)
+        personnage.visionBox = love.graphics.rectangle("fill",  width/2 + (perso.height/2)-(viewRange/2), height/2 + perso.height, viewRange, viewRange)
+
+      elseif dir == "left" then
+        --love.graphics.rectangle("fill", perso.x - perso.width/2 - viewRange, perso.y - perso.height/2, viewRange, viewRange)
+        personnage.visionBox = love.graphics.rectangle("fill",  width/2 - viewRange  ,height/2 + (perso.height/2)-(viewRange/2), viewRange, viewRange)
+
+      elseif dir == "right" then
+        --love.graphics.rectangle("fill", perso.x + perso.width/2, perso.y - perso.height/2, viewRange, viewRange)
+        personnage.visionBox = love.graphics.rectangle("fill",  width/2 + perso.width  , height/2 + (perso.height/2)-(viewRange/2), viewRange, viewRange)
+
+      else
+        print("Not a valid direction to draw")
+      end
+      love.graphics.setColor(255, 255, 255)
+
+    end
+
     function personnage:move(direction)
       if personnage.timer == 0 then
         local newx = personnage.x
         local newy = personnage.y
+        personnage.direction = direction
         if direction == "up" then
           newy = newy - 1
         elseif direction == "right" then

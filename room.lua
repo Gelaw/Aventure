@@ -59,6 +59,8 @@ function room.draw()
   love.graphics.setColor(255, 255, 255)
   room.drawPersonnage(lover, xHero, yHero)
   love.graphics.setColor(255, 255, 255)
+
+  lover:drawVision(lover,3)
 end
 
 function room.drawPersonnage(personnage, xCam, yCam)
