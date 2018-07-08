@@ -17,7 +17,7 @@ local Node = {}
     end
 
     function node:generatePath(path)
-      if parent == not nil then
+      if parent ~= nil then
         parent:generatePath(path)
       end
       path:add(self)

@@ -98,23 +98,23 @@ local Personnage = {}
         local steps = {{0,1}, {0,-1},{1,0},{-1,0}}
         for n = 1,4 do
           local tPos = {node.x + steps[n][1], node.y + steps[n][1]}
-          for v in openList do
-            if v.x == tPos[1] and v.y == tPos[2] then
-              if v.cost < node.cost then
-                v.cost = node.cost + 1
-                v.heuristic = v.cost + math.dist(v.x, v.y, xDestination, yDestionation)
-                v.parent = u
-                openList:add(v)
+          for v = 1, #openList.list, 1 do
+            if openList.list[v].x == tPos[1] and openList.list[v].y == tPos[2] then
+              if openList.list[v].cost < node.cost then
+                openList.list[v].cost = node.cost + 1
+                openList.list[v].heuristic = openList.list[v].cost + math.dist(openList.list[v].x, openList.list[v].y, xDestination, yDestionation)
+                openList.list[v].parent = u
+                openList:add(openList.list[v])
               end
             end
           end
-          for v in closedList do
-            if v.x == tPos[1] and v.y == tPos[2] then
-              if v.cost < node.cost then
-                v.cost = node.cost + 1
-                v.heuristic = v.cost + math.dist(v.x, v.y, xDestination, yDestionation)
-                v.parent = u
-                openList:add(v)
+          for v = 1, #closedList.list, 1 do
+            if closedList.list[v].x == tPos[1] and closedList.list[v].y == tPos[2] then
+              if closedList.list[v].cost < node.cost then
+                closedList.list[v].cost = node.cost + 1
+                closedList.list[v].heuristic = v.cost + math.dist(closedList.list[v].x, closedList.list[v].y, xDestination, yDestionation)
+                closedList.list[v].parent = u
+                openList:add(closedList.list[v])
               end
             end
           end
