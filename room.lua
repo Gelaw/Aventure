@@ -95,7 +95,11 @@ end
 function room.drawPersonnage(personnage, xCam, yCam)
   if personnage.x > xCam - nbTileWidth / 2 - 1 and personnage.x < xCam + nbTileWidth / 2
    and personnage.y > yCam - nbTileHeight/ 2 - 1 and personnage.y < yCam + nbTileHeight/ 2 then
-     love.graphics.rectangle("fill",(personnage.x - xCam)*room.tilesize + width/2, (personnage.y - yCam) * room.tilesize + height/2, room.tilesize, room.tilesize)
+     if visible then
+       if visible[personnage.x] and visible[personnage.x][personnage.y] == 1 then
+         love.graphics.rectangle("fill",(personnage.x - xCam)*room.tilesize + width/2, (personnage.y - yCam) * room.tilesize + height/2, room.tilesize, room.tilesize)
+      end
+    end
   end
 end
 
@@ -113,10 +117,9 @@ end
 
 function room.update(dt)
     px,py      = lover.x,lover.y
-    ex, ey = husband.x, husband.y
   generateVisible()
   husband:update(dt)
-  if enemyVision[lover.x] and enemyVision[lover.x][lover.y] == 1 and room.ground[lover.y][lover.x] < 3 then
+  if visible[husband.x] and visible[husband.x][husband.y] == 1 and room.ground[lover.y][lover.x] < 3 then
       husband:stop()
       husband:initPathFinding({x = lover.x, y = lover.y})
   end
