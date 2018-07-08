@@ -123,11 +123,9 @@ local Personnage = {}
           end
         end
       end
-      print("failed")
     end
 
     function personnage:generatePath(node)
-      print("succes")
       pathNodeList = NodeList:new()
       node:generatePath(pathNodeList)
       personnage.path = {}
@@ -145,13 +143,10 @@ local Personnage = {}
           direction = "up"
 
         else
-          print("Path convertion to cardinal instruction failed")
         end
-      --  print(direction)
         table.insert(personnage.path, direction)
         previousStep = pathNodeList.list[s];
       end
-      print("Pathfinding successful!")
     end
 
     return personnage
