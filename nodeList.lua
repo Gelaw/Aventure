@@ -9,7 +9,7 @@ local NodeList = {}
     end
 
     function nodeList:sort()
-      table.sort(nodeList.list, function (a,b) return a.heuristic<b.heuristic end)
+      table.sort(nodeList.list, function (a,b) return a.heuristic>b.heuristic end)
     end
 
     function nodeList:add(node)

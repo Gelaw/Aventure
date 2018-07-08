@@ -35,6 +35,7 @@ local Personnage = {}
     end
 
     function personnage:move(direction)
+    --  print("?")
       if personnage.timer == 0 then
         local newx = personnage.x
         local newy = personnage.y
@@ -50,7 +51,7 @@ local Personnage = {}
         if personnage.isWalkable(newx, newy) and (newx ~= personnage.x or newy ~= personnage.y) then
           personnage.x = newx
           personnage.y = newy
-          personnage.timer = 0.3
+          personnage.timer = 0.2
           --print(personnage.timer)
           return true
         end
@@ -59,16 +60,21 @@ local Personnage = {}
     end
 
     personnage.path = {}
+    personnage.pathIndex = 1
 
     function personnage:followPath()
       --print(#personnage.path)
-      if personnage.timer ~= 0 or #personnage.path == 0 then
+      if personnage.timer ~= 0 then
         return
       end
-      local direction = table.remove(personnage.path, 1)
+      if  #personnage.path == personnage.pathIndex then
+        personnage.path = {}
+        personnage.pathIndex = 1
+      end
+      local direction = personnage.path[personnage.pathIndex]
       --print(direction)
-      if personnage:move(direction) == false then
-        table.insert(personnage.path, direction, 1)
+      if personnage:move(direction) == true then
+        personnage.pathIndex = personnage.pathIndex + 1
       end
     end
 
@@ -83,36 +89,44 @@ local Personnage = {}
       while openList:isEmpty() == false do
         openList:sort()
         node = openList:getAndRemoveFirst()
-        print(node:prompt())
+        closedList:add(node)
+        --print("Removed node:"..node:prompt())
         if node.x == xDestination and node.y == yDestionation then
           pathNodeList = NodeList:new()
           pathNodeList:init()
           node:generatePath(pathNodeList)
-          --pathNodeList:prompt("pathNodeList")
+          --[[
+          while node.parent ~= nil do
+            pathNodeList:add(node.parent)
+            node = node.parent
+          end
+          reverse(pathNodeList)
+          ]]
+          pathNodeList:prompt("pathNodeList")
           personnage.path = {}
           local previousStep = pathNodeList.getAndRemoveFirst()
           for s = 1, #pathNodeList.list, 1 do
             --print(previousStep:prompt())
             local direction = {}
-            if previousStep.x == pathNodeList.list[s].x - 1 then
+            if previousStep.x == pathNodeList.list[s].x - 1 and previousStep.y == pathNodeList.list[s].y then
               direction = "right"
-            elseif previousStep.x == pathNodeList.list[s].x + 1 then
+            elseif previousStep.x == pathNodeList.list[s].x + 1 and previousStep.y == pathNodeList.list[s].y then
               direction = "left"
-            elseif previousStep.y == pathNodeList.list[s].y - 1 then
+            elseif previousStep.y == pathNodeList.list[s].y - 1 and previousStep.x == pathNodeList.list[s].x then
               direction = "down"
-            elseif previousStep.y == pathNodeList.list[s].y + 1 then
+            elseif previousStep.y == pathNodeList.list[s].y + 1 and previousStep.x == pathNodeList.list[s].x then
               direction = "up"
+
             else
               print("Path convertion to cardinal instruction failed")
             end
-            --print(direction)
+            print(direction)
             table.insert(personnage.path, direction)
             previousStep = pathNodeList.list[s];
           end
           print("Pathfinding successful!")
           return
         end
-        closedList:add(node)
         local steps = {{0,1}, {0,-1},{1,0},{-1,0}}
         for n = 1,4 do
           local tPos = {node.x + steps[n][1], node.y + steps[n][2]}
@@ -120,40 +134,57 @@ local Personnage = {}
           --print("tPos: x:"..tPos[1].." y:"..tPos[2])
           for v = 1, #openList.list, 1 do
             if openList.list[v].x == tPos[1] and openList.list[v].y == tPos[2] then
+              exist = true
               if openList.list[v].cost < node.cost then
-                openList.list[v].cost = node.cost + 1
-                openList.list[v].heuristic = openList.list[v].cost + math.dist(openList.list[v].x, openList.list[v].y, xDestination, yDestionation)
-                openList.list[v].parent = u
-                openList:add(openList.list[v])
-                exist = true
+                --openList.list[v].cost = node.cost + 1
+                --openList.list[v].heuristic = openList.list[v].cost + math.dist(openList.list[v].x, openList.list[v].y, xDestination, yDestionation)
+                --openList.list[v].parent = u
+                --openList:add(openList.list[v])
               end
             end
           end
           for v = 1, #closedList.list, 1 do
             if closedList.list[v].x == tPos[1] and closedList.list[v].y == tPos[2] then
+              exist = true
               if closedList.list[v].cost < node.cost then
-                closedList.list[v].cost = node.cost + 1
-                closedList.list[v].heuristic = closedList.list[v].cost + math.dist(closedList.list[v].x, closedList.list[v].y, xDestination, yDestionation)
-                closedList.list[v].parent = u
-                openList:add(closedList.list[v])
-                exist = true
+                --closedList.list[v].cost = node.cost + 1
+                --closedList.list[v].heuristic = closedList.list[v].cost + math.dist(closedList.list[v].x, closedList.list[v].y, xDestination, yDestionation)
+                --closedList.list[v].parent = u
+                --openList:add(closedList.list[v])
               end
             end
           end
-          print(tPos[1] .. " " .. tPos[2] )
-          print(personnage.isWalkable(tPos[1], tPos[2]))
-          if exist == false and personnage.isWalkable(tPos[1], tPos[2]) then
+        --  print(tPos[1] .. " " .. tPos[2] )
+          if exist == false then
             local new = Node:new()
             new:init(tPos[1], tPos[2], math.dist(tPos[1], tPos[2], xDestination, yDestionation), node.cost + 1, node)
-            openList:add(new)
+          --  print(personnage.isWalkable(tPos[1], tPos[2]))
+            if personnage.isWalkable(tPos[1], tPos[2]) then
+            --  print("Open")
+              openList:add(new)
+            else
+              --print("Closed")
+              closedList:add(new)
+            end
+
           end
         end
-      openList:prompt("openList")
+      --  openList:prompt("openList")
+        --sleep(5)
       end
       print("Pathfinding failed.")
     end
 
     return personnage
+  end
+
+  function reverse (arr)
+  	local i, j = 1, #arr
+  	while i < j do
+  		arr[i], arr[j] = arr[j], arr[i]
+  		i = i + 1
+  		j = j - 1
+  	end
   end
 
 return Personnage
