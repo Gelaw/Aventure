@@ -3,13 +3,8 @@ local NodeList = {}
     local nodeList = {}
     nodeList.list = {}
 
-
-    function nodeList:init()
-
-    end
-
     function nodeList:sort()
-      table.sort(nodeList.list, function (a,b) return a.heuristic>b.heuristic end)
+      table.sort(nodeList.list, function (a,b) return a.heuristic<b.heuristic end)
     end
 
     function nodeList:add(node)
@@ -37,6 +32,15 @@ local NodeList = {}
           print("   " .. nodeList.list[i]:prompt())
         end
       end
+    end
+
+    function nodeList:nodeAt(coord)
+      for i = 1, #nodeList.list, 1 do
+        if nodeList.list[i].x == coord.x and nodeList.list[i].y == coord.y then
+          return nodeList.list[i]
+        end
+      end
+      return false
     end
 
     return nodeList

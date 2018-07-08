@@ -1,5 +1,5 @@
 --additionnal materials
-function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
+function math.dist(x1,y1, x2,y2) return (math.abs(x2-x1)+math.abs(y2-y1)) end
 local clock = os.clock
 function sleep(n)
   local t0 = clock()
