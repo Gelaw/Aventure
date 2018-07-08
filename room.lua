@@ -60,13 +60,13 @@ function room.draw()
   room.drawPersonnage(lover, xHero, yHero)
   love.graphics.setColor(255, 255, 255)
 
-  lover:drawVision(lover,3)
 end
 
 function room.drawPersonnage(personnage, xCam, yCam)
   if personnage.x > xCam - nbTileWidth / 2 - 1 and personnage.x < xCam + nbTileWidth / 2
    and personnage.y > yCam - nbTileHeight/ 2 - 1 and personnage.y < yCam + nbTileHeight/ 2 then
      love.graphics.rectangle("fill",(personnage.x - xCam)*room.tilesize + width/2, (personnage.y - yCam) * room.tilesize + height/2, room.tilesize, room.tilesize)
+     personnage:drawVision(personnage,3,(personnage.x - xCam)*room.tilesize + width/2, (personnage.y - yCam) * room.tilesize + height/2)
   end
 end
 
@@ -93,6 +93,7 @@ function room.update(dt)
   if love.keyboard.isDown("q") or love.keyboard.isDown("left") then
     lover:move("left")
   end
+    lover:detected(love)
 end
 
 return room

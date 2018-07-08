@@ -12,7 +12,7 @@ local Personnage = {}
     personnage.speed = 1
     personnage.timer = 0
     personnage.isWalkable = {}
-    personnage.direction = "right"
+    personnage.direction = "up"
     personnage.visionBox = {}
 
     function personnage:init(x, y, isWalkable)
@@ -40,31 +40,36 @@ local Personnage = {}
       end
     end
 
-    function personnage:drawVision(perso, viewRangeInTile)
+    function personnage:drawVision(perso,viewRangeInTile,xCam, yCam)
       local dir = perso.direction
       local viewRange = viewRangeInTile * 50
       love.graphics.setColor(255, 255, 0,50)
       if dir == "up" then
         --love.graphics.rectangle("fill", perso.x + perso.width/2, perso.y - perso.height/2 - viewRange, viewRange, viewRange)
-        personnage.visionBox = love.graphics.rectangle("fill",  width/2 + (perso.width/2)-(viewRange/2), height/2 - viewRange, viewRange, viewRange)
+        perso.visionBox = love.graphics.rectangle("fill",  xCam + (perso.width/2)-(viewRange/2), yCam - viewRange, viewRange, viewRange)
 
       elseif dir == "down" then
         --love.graphics.rectangle("fill", perso.x - perso.width/2, perso.y - perso.height/2, viewRange, viewRange)
-        personnage.visionBox = love.graphics.rectangle("fill",  width/2 + (perso.height/2)-(viewRange/2), height/2 + perso.height, viewRange, viewRange)
+        perso.visionBox = love.graphics.rectangle("fill",  xCam + (perso.height/2)-(viewRange/2), yCam + perso.height, viewRange, viewRange)
 
       elseif dir == "left" then
         --love.graphics.rectangle("fill", perso.x - perso.width/2 - viewRange, perso.y - perso.height/2, viewRange, viewRange)
-        personnage.visionBox = love.graphics.rectangle("fill",  width/2 - viewRange  ,height/2 + (perso.height/2)-(viewRange/2), viewRange, viewRange)
+        perso.visionBox = love.graphics.rectangle("fill",  xCam - viewRange  ,yCam + (perso.height/2)-(viewRange/2), viewRange, viewRange)
 
       elseif dir == "right" then
         --love.graphics.rectangle("fill", perso.x + perso.width/2, perso.y - perso.height/2, viewRange, viewRange)
-        personnage.visionBox = love.graphics.rectangle("fill",  width/2 + perso.width  , height/2 + (perso.height/2)-(viewRange/2), viewRange, viewRange)
+        perso.visionBox = love.graphics.rectangle("fill",  xCam + perso.width  , yCam + (perso.height/2)-(viewRange/2), viewRange, viewRange)
 
       else
         print("Not a valid direction to draw")
       end
       love.graphics.setColor(255, 255, 255)
+    end
 
+    function personnage:detected()
+      if personnage.visionBox ~= nil then
+        print(personnage.visionBox.x)
+      end
     end
 
     function personnage:move(direction)
