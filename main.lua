@@ -20,6 +20,8 @@ function love.load()
   height = love.graphics.getHeight()
   room.init()
 end
+local timer = 2
+local husbandEnter = true
 
 function love.update(dt)
   if currScreen == "game" then
@@ -28,6 +30,14 @@ function love.update(dt)
   if lover.x == husband.x and lover.y == husband.y then
     loose()
   end
+  if currScreen == "game" then
+    timer = timer - dt
+    if timer <= 0 then
+      husbandEnter = false
+    end
+  end
+
+
 
 end
 
@@ -55,6 +65,11 @@ end
 function love.draw()
   if currScreen == "game" then
     room.draw()
+    if husbandEnter == true then
+        love.graphics.setColor(255, 0, 0)
+        love.graphics.print("Honey! I m home!",200+husband.x , 200+husband.y,0,2,2)
+        love.graphics.setColor(255, 255, 255)
+    end
   end
   if currScreen == "menu" then
     drawMenu()
@@ -95,9 +110,12 @@ function reset()
   currScreen = "menu"
   room.init()
 end
+function gameLaunched()
+  currScreen = "game"
+end
 function love.keypressed(key)
   if currScreen == "menu" and key == "space" then
-    currScreen = "game"
+    gameLaunched()
   end
   if currScreen == "victory" or currScreen == "gameOver" and key == "space" then
     reset()

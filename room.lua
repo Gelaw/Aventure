@@ -138,7 +138,6 @@ function room.update(dt)
   end
   if room.ground[lover.y][lover.x] == 5 then
     win()
-    print("win")
   end
 end
 
