@@ -9,6 +9,7 @@ function room.init()
   lover = Personnage:new()
   lover:init(5,5,isWalkable)
   lover:initPathFinding(20,15)
+  lover.isIA = true
   husband = Personnage:new()
   husband:init(20,16, isWalkable)
 

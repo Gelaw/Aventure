@@ -12,6 +12,7 @@ local Personnage = {}
     personnage.speed = 1
     personnage.timer = 0
     personnage.isWalkable = {}
+    personnage.isIA = false
 
     function personnage:init(x, y, isWalkable)
       personnage.x = x
@@ -27,6 +28,9 @@ local Personnage = {}
 
       else
         personnage.timer = 0
+      end
+      if personnage.isIA == true then
+        personnage:followPath()
       end
     end
 
@@ -49,14 +53,24 @@ local Personnage = {}
           personnage.timer = 0.3
           --print(personnage.timer)
           return true
-        else
-          return false
         end
-        return true
+        return false
       end
     end
 
-    Personnage.path = {}
+    personnage.path = {}
+
+    function personnage:followPath()
+      --print(#personnage.path)
+      if personnage.timer ~= 0 or #personnage.path == 0 then
+        return
+      end
+      print(direction)
+      local direction = table.remove(personnage.path, 1)
+      if personnage:move(direction) == false then
+        table.insert(personnage.path, direction, 1)
+      end
+    end
 
     function personnage:initPathFinding(xDestination, yDestionation)
       local openList = NodeList:new()
@@ -69,11 +83,12 @@ local Personnage = {}
       while openList:isEmpty() == false do
         openList:sort()
         node = openList:getAndRemoveFirst()
-        print(node:prompt())
+        --print(node:prompt())
         if node.x == xDestination and node.y == yDestionation then
           pathNodeList = NodeList:new()
           pathNodeList:init()
           node:generatePath(pathNodeList)
+          pathNodeList:prompt("pathNodeList")
           personnage.path = {}
           local previousStep = pathNodeList.getAndRemoveFirst()
           for s = 1, #pathNodeList.list, 1 do
@@ -89,6 +104,7 @@ local Personnage = {}
             else
               print("Path convertion to cardinal instruction failed")
             end
+            print(direction)
             table.insert(personnage.path, direction)
             previousStep = step;
           end
@@ -100,7 +116,7 @@ local Personnage = {}
         for n = 1,4 do
           local tPos = {node.x + steps[n][1], node.y + steps[n][2]}
           local exist = false
-          print("tPos: x:"..tPos[1].." y:"..tPos[2])
+          --print("tPos: x:"..tPos[1].." y:"..tPos[2])
           for v = 1, #openList.list, 1 do
             if openList.list[v].x == tPos[1] and openList.list[v].y == tPos[2] then
               if openList.list[v].cost < node.cost then
@@ -129,7 +145,7 @@ local Personnage = {}
             openList:add(new)
           end
         end
-        openList:prompt("openList")
+      --  openList:prompt("openList")
       end
       print("Pathfinding failed.")
     end
