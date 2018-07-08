@@ -10,8 +10,9 @@ local room = require("room")
 
 --images
 local imgMenu = love.graphics.newImage("images/imgMenu.jpg")
+local imgGameOver = love.graphics.newImage("images/imgGameOver.jpg")
 
-local currScreen = "game"
+local currScreen = "gameOver"
 
 function love.load()
   width = love.graphics.getWidth()
@@ -28,13 +29,18 @@ end
 function drawMenu()
   love.graphics.draw(imgMenu, 0, 0,0,0.8,0.9)
 end
-
+function drawGameOver()
+  love.graphics.draw(imgGameOver, 0, 0,0,0.8,0.9)
+end
 function love.draw()
   if currScreen == "game" then
     room.draw()
   end
   if currScreen == "menu" then
     drawMenu()
+  end
+  if currScreen == "gameOver" then
+    drawGameOver()
   end
 
 
