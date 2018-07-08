@@ -12,8 +12,8 @@ function room.init()
       {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-      {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-      {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+      {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,1},
+      {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
       {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
       {1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -72,6 +72,8 @@ function room.draw()
         love.graphics.setColor(116, 108, 0, transp)
       elseif room.ground[y][x] == 1 then
         love.graphics.setColor(53, 58, 62, transp)
+      elseif room.ground[y][x] == 4 then
+        love.graphics.setColor(255, 128, 0, transp)
       end
 
       love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
@@ -96,7 +98,7 @@ isWalkable = function (x,y)
     return false
   elseif x <= 0 or x > #room.ground[y] then
     return false
-  elseif room.ground[y][x] == 0 then
+  elseif room.ground[y][x] == 0 or room.ground[y][x] == 4 then
     return true
   else
     return false
@@ -107,7 +109,7 @@ function room.update(dt)
     px,py      = husband.x,husband.y
   generateVisible()
   husband:update(dt)
-  if visible[lover.x] and visible[lover.x][lover.y] == 1 then
+  if visible[lover.x] and visible[lover.x][lover.y] == 1 and room.ground < 3 then
       husband:stop()
       husband:initPathFinding({x = lover.x, y = lover.y})
   end
@@ -139,7 +141,7 @@ fov = require 'fov'
 
 tw,th      = 8,8
 px,py      = 5,5
-radius     = 10
+radius     = 20
 radius_type= 'circle'
 perm       = 5
 angle      = 0
