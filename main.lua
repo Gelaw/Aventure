@@ -22,8 +22,6 @@ end
 function love.update(dt)
   if currScreen == "game" then
     room.update(dt)
-    sleep(10)
-    print("done")
   end
 
 end
