@@ -99,15 +99,15 @@ function room.drawPersonnage(personnage, xCam, yCam)
      love.graphics.rectangle("fill",(personnage.x - xCam)*room.tilesize + width/2, (personnage.y - yCam) * room.tilesize + height/2
                               , room.tilesize, room.tilesize)
 
-     local trueX = (personnage.x - xCam)*room.tilesize + width/2
+     local trueX = (personnage.x - xCam) * room.tilesize + width/2
      local trueY = (personnage.y - yCam) * room.tilesize + height/2
 
      --test sc
-     for i = 0, 45,1 do
+     for i = 0, 0,1 do
 
        local vx,vy
-       vx = math.cos(i*math.pi/180)
-       vy = math.sin(i*math.pi/180)
+       vx = math.cos(i* math.pi/180)
+       vy = math.sin(i* math.pi/180)
        love.graphics.setColor(255, 0, 0)
        local fX, fY,a,b,x1,x2,y1,y2
        x1 = trueX + room.tilesize/2
@@ -119,6 +119,19 @@ function room.drawPersonnage(personnage, xCam, yCam)
 
        a = (y2 - y1) / (x2 - x1)
        b = ((x2*y1)-(x1*y2)) / (x2 - x1)
+
+      local u,v = 1,1
+       while u < math.abs(xCam) do
+        while v < math.abs(yCam) do
+          if room.ground[v][u] == 0 then
+            fX = u
+            fY = v
+            break
+          end
+          v = v + 1
+        end
+        u = u + 1
+       end
 
        love.graphics.line(x1, y1,
                           fX, fY)
