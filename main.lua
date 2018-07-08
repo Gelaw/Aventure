@@ -31,8 +31,13 @@ end
 
 function drawMenu()
   love.graphics.draw(imgMenu, 0, 0,0,1.5,2)
-  --love.graphics.setFont("fonts/Sonika")
-  love.graphics.print("AVENTURE",100,50,0.4,4,4)
+  local font = love.graphics.newFont("fonts/Sonika.ttf", 20)
+  love.graphics.setFont(font)
+  love.graphics.setColor(255, 0, 0)
+  love.graphics.print("AVENTURE",90,40,0.4,4,4)
+  love.graphics.setColor(255, 165, 0)
+  love.graphics.print("Press space to start", width/2-200, height-100,0,2,2)
+  love.graphics.setColor(238, 130, 238)
 end
 function drawGameOver()
   love.graphics.draw(imgGameOver, 0, 0,0,0.8,0.9)
