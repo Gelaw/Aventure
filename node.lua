@@ -1,7 +1,7 @@
 local Node = {}
 
   function Node:new()
-    node = {}
+    local node = {}
     node.x = {}
     node.y = {}
     node.heuristic =  {}

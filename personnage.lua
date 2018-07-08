@@ -64,7 +64,7 @@ local Personnage = {}
       local closedList = NodeList:new()
       closedList:init()
       local node = Node:new()
-      node:init(Personnage.x, Personnage.y, math.dist(Personnage.x, Personnage.y, xDestination, yDestionation),0,nil)
+      node:init(personnage.x, personnage.y, math.dist(personnage.x, personnage.y, xDestination, yDestionation),0,nil)
       openList:add(node)
       while openList:isEmpty() == false do
         openList:sort()
@@ -97,11 +97,11 @@ local Personnage = {}
         closedList:add(node)
         local steps = {{0,1}, {0,-1},{1,0},{-1,0}}
         for n = 1,4 do
-          local tPos = {u.x + steps[n][0], u.y+steps[n][0]}
+          local tPos = {node.x + steps[n][1], node.y + steps[n][1]}
           for v in openList do
             if v.x == tPos[1] and v.y == tPos[2] then
-              if v.cost < u.cost then
-                v.cost = u.cost + 1
+              if v.cost < node.cost then
+                v.cost = node.cost + 1
                 v.heuristic = v.cost + math.dist(v.x, v.y, xDestination, yDestionation)
                 v.parent = u
                 openList:add(v)
@@ -110,8 +110,8 @@ local Personnage = {}
           end
           for v in closedList do
             if v.x == tPos[1] and v.y == tPos[2] then
-              if v.cost < u.cost then
-                v.cost = u.cost + 1
+              if v.cost < node.cost then
+                v.cost = node.cost + 1
                 v.heuristic = v.cost + math.dist(v.x, v.y, xDestination, yDestionation)
                 v.parent = u
                 openList:add(v)

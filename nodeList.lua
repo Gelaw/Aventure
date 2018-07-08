@@ -1,6 +1,6 @@
 local NodeList = {}
   function NodeList:new()
-    nodeList = {}
+    local nodeList = {}
     nodeList.list = {}
 
 
