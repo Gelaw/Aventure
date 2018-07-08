@@ -1,5 +1,6 @@
 --local husband = require("husband")
 local Personnage = require("personnage")
+local imgTileGrass = love.graphics.newImage("images/imgTileGrass.png")
 
 local room = {}
 room.ground = {}
@@ -45,7 +46,7 @@ function room.init()
   wife = Personnage:new()
   wife:init(11,4, isWalkable)
 
-  room.tilesize = 10
+  room.tilesize = 20
 
   husband:initPathFinding({x = lover.x, y = lover.y})
   husband.isIA = true
@@ -65,21 +66,30 @@ function room.draw()
           transp = 255
         end
       end
+      local control = true
       if y <= 0 or y > #room.ground then
-        love.graphics.setColor(0, 0, 0, transp)
+        love.graphics.setColor(255, 150, 255, 150)
+        --love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
+        love.graphics.draw(imgTileGrass, (x- xHero)* room.tilesize + width/2, (y- yHero) * room.tilesize + height /2,0,room.tilesize/10,room.tilesize/10)
+        control = false
       elseif x <= 0 or x > #room.ground[y] then
-        love.graphics.setColor(0, 0, 0, transp)
-      elseif room.ground[y][x] == 0 then
-        love.graphics.setColor(116, 108, 0, transp)
-      elseif room.ground[y][x] == 1 then
-        love.graphics.setColor(53, 58, 62, transp)
-      elseif room.ground[y][x] == 4 then
-        love.graphics.setColor(255, 128, 0, transp)
-      elseif room.ground[y][x] == 5 then
-        love.graphics.setColor(51, 0, 25, transp)
+        love.graphics.setColor(255, 150, 255, 150)
+        love.graphics.draw(imgTileGrass, (x- xHero)* room.tilesize + width/2, (y- yHero) * room.tilesize + height /2,0,room.tilesize/10,room.tilesize/10)
+        control = false
       end
-
-      love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
+      love.graphics.setColor(255, 255, 255, 255)
+      if control == true then
+        if room.ground[y][x] == 0 then
+          love.graphics.setColor(116, 108, 0, transp)
+        elseif room.ground[y][x] == 1 then
+          love.graphics.setColor(53, 58, 62, transp)
+        elseif room.ground[y][x] == 4 then
+          love.graphics.setColor(255, 128, 0, transp)
+        elseif room.ground[y][x] == 5 then
+          love.graphics.setColor(51, 0, 25, transp)
+        end
+        love.graphics.rectangle("fill", (x - xHero)* room.tilesize + width/2, (y - yHero) * room.tilesize + height /2, room.tilesize, room.tilesize)
+      end
     end
   end
   love.graphics.setColor(255, 255, 255)

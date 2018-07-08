@@ -12,7 +12,6 @@ local room = require("room")
 local imgMenu = love.graphics.newImage("images/imgMenu.jpg")
 local imgGameOver = love.graphics.newImage("images/imgGameOver.jpg")
 local imgVictory = love.graphics.newImage("images/imgVictory.jpg")
-
 local currScreen = "menu"
 
 function love.load()
