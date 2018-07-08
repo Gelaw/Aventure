@@ -12,7 +12,7 @@ local room = require("room")
 local imgMenu = love.graphics.newImage("images/imgMenu.jpg")
 local imgGameOver = love.graphics.newImage("images/imgGameOver.jpg")
 
-local currScreen = "gameOver"
+local currScreen = "game"
 
 function love.load()
   width = love.graphics.getWidth()
@@ -23,6 +23,9 @@ end
 function love.update(dt)
   if currScreen == "game" then
     room.update(dt)
+  end
+  if lover.x == husband.x and lover.y == husband.y then
+    currScreen = "gameOver"
   end
 end
 

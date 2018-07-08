@@ -21,12 +21,12 @@ local Node = {}
     function node:generatePath(path)
 
       if node.parent == nil then
-        print(node:prompt())
+        --print(node:prompt())
         path:add(node)
         return
       end
       node.parent:generatePath(path)
-      print(node:prompt())
+    --  print(node:prompt())
       path:add(node)
       return path
     end

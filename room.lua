@@ -1,4 +1,4 @@
-local husband = require("husband")
+--local husband = require("husband")
 local Personnage = require("personnage")
 
 local room = {}
