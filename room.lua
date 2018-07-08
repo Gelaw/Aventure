@@ -8,8 +8,6 @@ room.tilesize = 0
 function room.init()
   lover = Personnage:new()
   lover:init(5,5,isWalkable)
-  lover:initPathFinding(20,15)
-  lover.isIA = true
   husband = Personnage:new()
   husband:init(20,16, isWalkable)
 
@@ -32,6 +30,9 @@ function room.init()
   {1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}}
   room.tilesize = 50
+
+  lover:initPathFinding(20,15)
+  lover.isIA = true
 end
 
 function room.draw()
@@ -68,7 +69,11 @@ function room.drawPersonnage(personnage, xCam, yCam)
 end
 
 isWalkable = function (x,y)
-  if room.ground[y][x] == 0 then
+  if y <= 0 or y > #room.ground then
+    return false
+  elseif x <= 0 or x > #room.ground[y] then
+    return false
+  elseif room.ground[y][x] == 0 then
     return true
   else
     return false
