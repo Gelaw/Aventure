@@ -17,12 +17,12 @@ local Node = {}
     end
 
     function node:generatePath(path)
-      if parent == nil then
-        path:add(self)
+      if node.parent == nil then
+        path:add(node)
         return
       end
-      parent:generatePath(path)
-      path:add(self)
+      node.parent:generatePath(path)
+      path:add(node)
       return path
     end
 

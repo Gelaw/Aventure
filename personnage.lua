@@ -92,6 +92,7 @@ local Personnage = {}
           personnage.path = {}
           local previousStep = pathNodeList.getAndRemoveFirst()
           for s = 1, #pathNodeList.list, 1 do
+            print(previousStep:prompt())
             local direction = {}
             if previousStep.x == pathNodeList.list[s].x - 1 then
               direction = "right"
@@ -106,7 +107,7 @@ local Personnage = {}
             end
             print(direction)
             table.insert(personnage.path, direction)
-            previousStep = step;
+            previousStep = pathNodeList.list[s];
           end
           print("Pathfinding successful!")
           return
@@ -122,7 +123,7 @@ local Personnage = {}
               if openList.list[v].cost < node.cost then
                 openList.list[v].cost = node.cost + 1
                 openList.list[v].heuristic = openList.list[v].cost + math.dist(openList.list[v].x, openList.list[v].y, xDestination, yDestionation)
-                openList.list[v].parent = u
+                --openList.list[v].parent = u
                 openList:add(openList.list[v])
                 exist = true
               end
@@ -133,7 +134,7 @@ local Personnage = {}
               if closedList.list[v].cost < node.cost then
                 closedList.list[v].cost = node.cost + 1
                 closedList.list[v].heuristic = closedList.list[v].cost + math.dist(closedList.list[v].x, closedList.list[v].y, xDestination, yDestionation)
-                closedList.list[v].parent = u
+                --closedList.list[v].parent = u
                 openList:add(closedList.list[v])
                 exist = true
               end
